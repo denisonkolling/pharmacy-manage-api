@@ -2,11 +2,10 @@ package com.pharmacymanage.controller;
 
 import com.pharmacymanage.model.Farmacia;
 import com.pharmacymanage.service.FarmaciaService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +29,11 @@ public class FarmaciaController {
     public ResponseEntity<Farmacia> consultarFarmaciaPorCnpj(@PathVariable("cnpj") Long cnpj) {
         Farmacia farmacia = farmaciaService.consultarFarmaciaPorCnpj(cnpj);
         return ResponseEntity.ok(farmacia);
+    }
+
+    @PostMapping
+    public ResponseEntity<Farmacia> cadastrarFarmacia(@RequestBody @Valid Farmacia farmacia) {
+        farmacia = farmaciaService.cadastrarFarmacia(farmacia);
+        return new ResponseEntity<>(farmacia, HttpStatus.CREATED);
     }
 }
