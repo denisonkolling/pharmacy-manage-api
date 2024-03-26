@@ -22,4 +22,13 @@ public class FarmaciaService {
     public Farmacia consultarFarmaciaPorCnpj(Long cnpj) {
         return farmaciaRepository.findById(cnpj).orElseThrow(() -> new RuntimeException());
     }
+
+    public Farmacia cadastrarFarmacia(Farmacia farmacia) {
+
+        if (farmaciaRepository.findById(farmacia.getCnpj()).isPresent()) {
+            throw new RuntimeException("CNPJ já cadastrado");
+        }
+
+        return farmaciaRepository.save(farmacia);
+    }
 }
