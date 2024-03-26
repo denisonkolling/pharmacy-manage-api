@@ -43,7 +43,7 @@ public class FarmaciaController {
     }
 
     @PostMapping("{cnpj}/telefones")
-    public  ResponseEntity<Telefone> cadastrarTelefone(@PathVariable("cnpj") Long cnpj, @RequestBody TelefoneRequest telefoneRequest) {
+    public ResponseEntity<Telefone> cadastrarTelefone(@PathVariable("cnpj") Long cnpj, @RequestBody TelefoneRequest telefoneRequest) {
 
         Telefone telefone = new Telefone();
 
@@ -54,5 +54,11 @@ public class FarmaciaController {
 
         telefoneService.cadastrarTelefone(telefone);
         return new ResponseEntity<>(telefone, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("{cnpj}/telefones/{id}")
+    public ResponseEntity<?> removerTelefone(@PathVariable("cnpj") Long cnpj, @PathVariable("id") Long id) {
+        telefoneService.removerTelefone(cnpj, id);
+        return ResponseEntity.noContent().build();
     }
 }
