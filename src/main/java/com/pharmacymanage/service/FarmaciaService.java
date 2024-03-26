@@ -18,4 +18,8 @@ public class FarmaciaService {
     public List<Farmacia> listarTodasFarmacias() {
         return farmaciaRepository.findAll();
     }
+
+    public Farmacia consultarFarmaciaPorCnpj(Long cnpj) {
+        return farmaciaRepository.findById(cnpj).orElseThrow(() -> new RuntimeException());
+    }
 }
